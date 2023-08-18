@@ -69,7 +69,7 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
 
         try:
-            total_intereses = pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
+            pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
 
             self.assertEqual(monto, 1)
 
@@ -83,7 +83,7 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
 
         try:
-            total_intereses = pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
+            pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
 
             self.assertEqual(cuotas, -1)
 
