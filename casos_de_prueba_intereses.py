@@ -1,9 +1,9 @@
 import unittest
 
-import pago_con_intereses as pg
+import pago_tarjeta_credito as ptc
 
 
-class CreditCard(unittest.TestCase):
+class TarjetaCredito(unittest.TestCase):
 
     def test_caso_normal(self):
         monto = 200000
@@ -12,7 +12,7 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
         prueba_total_intereses = 134726.53
 
-        total_intereses = round(pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
+        total_intereses = round(ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
 
         self.assertEqual(prueba_total_intereses, total_intereses)
 
@@ -23,7 +23,7 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
         prueba_total_intereses = 407059.97
 
-        total_intereses = round(pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
+        total_intereses = round(ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
 
         self.assertEqual(prueba_total_intereses, total_intereses)
 
@@ -34,7 +34,7 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = monto / cuotas
         prueba_total_intereses = 0
 
-        total_intereses = round(pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
+        total_intereses = round(ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
 
         self.assertEqual(prueba_total_intereses, total_intereses)
 
@@ -45,10 +45,10 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses) / (1 - ((1 + tasa_intereses) ** (-cuotas)))
 
         try:
-            total_intereses = pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
+            total_intereses = ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
 
             self.assertEqual(total_intereses, 0)
-        except pg.TasaExcesiva:
+        except ptc.TasaExcesiva:
             pass
 
     def test_cuota_unica(self):
@@ -58,7 +58,7 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = 90000
         prueba_total_intereses = 0
 
-        total_intereses = round(pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
+        total_intereses = round(ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
 
         self.assertEqual(prueba_total_intereses, total_intereses)
 
@@ -69,11 +69,11 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
 
         try:
-            pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
+            ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
 
             self.assertEqual(monto, 1)
 
-        except pg.NoTieneMonto:
+        except ptc.NoTieneMonto:
             pass
 
     def test_error_negativo(self):
@@ -83,11 +83,11 @@ class CreditCard(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
 
         try:
-            pg.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
+            ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
 
             self.assertEqual(cuotas, -1)
 
-        except pg.CuotasNegativas:
+        except ptc.CuotasNegativas:
             pass
 
 
