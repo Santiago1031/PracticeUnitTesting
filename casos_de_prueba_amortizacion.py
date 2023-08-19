@@ -12,38 +12,40 @@ class TarjetaCredito1(unittest.TestCase):
 
         amortizacion = round(ptc.calcular_plan_amortizacion(monto, cuotas, tasa_intereses), 2)
 
+        self.assertEqual(prueba_amortizacion, amortizacion)
+
     def test_caso_normal(self):
         monto = 200000
         tasa_intereses = 0.031
         cuotas = 36
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
-        prueba_total_intereses = 134726.53
+        prueba_amortizacion = 134726.53
 
-        total_intereses = round(ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
+        amortizacion = round(ptc.calcular_plan_amortizacion(cuota_mensual, cuotas, monto, tasa_intereses), 2)
 
-        self.assertEqual(prueba_total_intereses, total_intereses)
+        self.assertEqual(prueba_amortizacion, amortizacion)
 
     def test_caso_normal2(self):
         monto = 850000
         tasa_intereses = 0.034
         cuotas = 24
         cuota_mensual = (monto * tasa_intereses)/(1-((1+tasa_intereses)**(-cuotas)))
-        prueba_total_intereses = 407059.97
+        prueba_amortizacion = 407059.97
 
-        total_intereses = round(ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
+        amortizacion = round(ptc.calcular_plan_amortizacion(cuota_mensual, cuotas, monto, tasa_intereses), 2)
 
-        self.assertEqual(prueba_total_intereses, total_intereses)
+        self.assertEqual(prueba_amortizacion, amortizacion)
 
     def test_tasa_cero(self):
         monto = 480000
         tasa_intereses = 0.0
         cuotas = 48
         cuota_mensual = monto / cuotas
-        prueba_total_intereses = 0
+        prueba_amortizacion = 0
 
-        total_intereses = round(ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses), 2)
+        amortizacion = round(ptc.calcular_plan_amortizacion(cuota_mensual, cuotas, monto, tasa_intereses), 2)
 
-        self.assertEqual(prueba_total_intereses, total_intereses)
+        self.assertEqual(prueba_amortizacion, amortizacion)
 
     def test_usura(self):
         monto = 50000
@@ -52,8 +54,8 @@ class TarjetaCredito1(unittest.TestCase):
         cuota_mensual = (monto * tasa_intereses) / (1 - ((1 + tasa_intereses) ** (-cuotas)))
 
         try:
-            total_intereses = ptc.calcular_intereses(cuota_mensual, cuotas, monto, tasa_intereses)
+            amortizacion = ptc.calcular_plan_amortizacion(cuota_mensual, cuotas, monto, tasa_intereses)
 
-            self.assertEqual(total_intereses, 0)
+            self.assertEqual(amortizacion, 0)
         except ptc.TasaExcesiva:
             pass
